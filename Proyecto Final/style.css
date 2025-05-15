@@ -1,0 +1,229 @@
+/* Fuente base */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f7f9;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* Menú de navegación */
+.menu {
+  background-color: #f9c300;
+  padding: 1rem;
+}
+
+.menu-principal {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.menu-principal li {
+  position: relative;
+  margin: 0 1rem;
+}
+
+.menu-principal a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  transition: background 0.3s ease;
+}
+
+.menu-principal a:hover {
+  background-color: #d9af17;
+  border-radius: 5px;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background-color: #ffab0f;
+  list-style: none;
+  padding: 0.5rem 0;
+  min-width: 150px;
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+.submenu li {
+  margin: 0;
+  padding: 0;
+}
+
+.submenu li a {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.menu-principal li:hover .submenu {
+  display: block;
+}
+
+/* Secciones principales */
+header.intro {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(to right, #ffa813, #ffa813);
+  color: white;
+}
+
+header.intro h1 {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+main {
+  padding: 2rem 1rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+section {
+  background: #ffffff;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Botón genérico */
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #fcba2c;
+  color: #ffffff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #ffb60c;
+}
+
+/* Lista de servicios */
+.servicios ul {
+  list-style-type: square;
+  padding-left: 1.2rem;
+  margin-top: 1rem;
+}
+
+/* Equipo */
+.miembros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.miembros-grid div {
+  background: #f1f1f1;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
+  background: #00332b;
+  color: #ffffff;
+  text-align: center;
+  padding: 1.2rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu-principal {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header.intro h1 {
+    font-size: 2rem;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.miembros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.miembro {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.foto-miembro {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+img {
+  display: block;
+  margin: auto;
+  width: 10%;
+}
+
+#nuestro-equipo {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.equipo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.equipo-miembro {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  width: 250px;
+  text-align: center;
+}
+
+.equipo-miembro img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.equipo-miembro h3 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.2rem;
+}
+
+.equipo-miembro p {
+  margin: 0;
+  color: #666;
+}

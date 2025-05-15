@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "Arq. María Isabel Ronquillo",
+    "cargo": "Presidenta",
+    "foto": "img/Marquillo.jpg"
+  },
+  {
+    "nombre": "Ing. José Domingo Pereda Alva",
+    "cargo": "Presidente del grupo CAGE",
+    "foto": "img/Jose.png"
+  },
+  {
+    "nombre": "Lic. Francisco Javier Calderón Rodríguez",
+    "cargo": "Juez Federal Laboral",
+    "foto": "img/Francisco.jpg"
+  }
+]
