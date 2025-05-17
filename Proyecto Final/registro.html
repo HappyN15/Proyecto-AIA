@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Crear Cuenta</title>
+  <link rel="stylesheet" type="text/css" href="registro.css" />      
+</head>
+<body>
+  <div class="container">
+    <h2>Crear Cuenta</h2>
+    <form id="registroForm">
+      <input type="text" id="nuevoUsuario" placeholder="Nuevo usuario" required />
+      <input type="password" id="nuevaContrasena" placeholder="Nueva contraseña" required />
+      <button type="submit">Registrarse</button>
+    </form>
+    <p id="registroMensaje"></p>
+    <p>¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+  </div>
+</body>
+
+  <p id="registroMensaje"></p>
+
+  <script>
+    async function encriptarTexto(texto) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(texto);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    document.getElementById("registroForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const nuevoUsuario = document.getElementById("nuevoUsuario").value;
+      const nuevaContrasena = document.getElementById("nuevaContrasena").value;
+
+      const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      const yaExiste = usuarios.some(u => u.username === nuevoUsuario);
+      if (yaExiste) {
+        document.getElementById("registroMensaje").textContent = "⚠️ Ese usuario ya existe.";
+        return;
+      }
+
+      const contrasenaEncriptada = await encriptarTexto(nuevaContrasena);
+
+      usuarios.push({
+        username: nuevoUsuario,
+        password: contrasenaEncriptada
+      });
+
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+      console.log("Usuario registrado:", nuevoUsuario);
+      console.log("Contraseña encriptada:", contrasenaEncriptada);
+
+      document.getElementById("registroMensaje").textContent = "✅ Registro exitoso. Redirigiendo...";
+      setTimeout(() => window.location.href = "login.html", 2000);
+    });
+  </script>
+</body>
+</html>

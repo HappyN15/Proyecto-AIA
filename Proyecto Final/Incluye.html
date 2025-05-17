@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-95QYHNCBXB"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-95QYHNCBXB');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¿Qué incluye un proyecto? - AIA Cd. Juárez</title>
+  <link rel="icon" href="img/AIA.png" />
+  <link rel="stylesheet" href="In.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 20px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #f4f4f4;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    button {
+      margin-left: 10px;
+      padding: 5px;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 6px;
+      margin-bottom: 10px;
+    }
+    .volver {
+      display: inline-block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>¿Qué incluye un proyecto de la AIA?</h1>
+    <nav>
+      <a href="index.html">Inicio</a> |
+      <a href="leer.html">Leer Más</a> |
+      <a href="Contacto.html">Contacto</a> |
+      <a href="Nosotros.html">Nosotros</a> |
+      <a href="DRO.html">¿Cómo ser DRO?</a> |
+      <a href="login.html">¡Afíliate!</a>
+    </nav>
+  </header>
+
+  <main class="contenido-proyecto">
+    <section>
+      <p>Un proyecto desarrollado por la Asociación de Ingenieros y Arquitectos de Ciudad Juárez está compuesto por múltiples elementos técnicos, normativos y legales que garantizan calidad, seguridad y cumplimiento con las regulaciones municipales y nacionales.</p>
+    </section>
+
+    <section>
+      <h2>Elementos que incluye un proyecto:</h2>
+
+      <input type="text" id="nuevoElemento" placeholder="Agregar nuevo elemento..." />
+      <button onclick="agregarElemento()">Agregar</button>
+      <ul id="listaElementos"></ul>
+    </section>
+
+    <section>
+      <h2>¿Quién participa en el proyecto?</h2>
+      <p>El equipo multidisciplinario de la AIA incluye arquitectos, ingenieros civiles, eléctricos, estructuristas, sanitarios y técnicos en seguridad. Cada uno colabora para garantizar la viabilidad y calidad del proyecto.</p>
+    </section>
+
+    <a class="volver" href="index.html">← Regresar al inicio</a>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Asociación de Ingenieros de Ciudad Juárez. Todos los derechos reservados.</p>
+  </footer>
+
+   <script>
+    // Elementos por defecto
+    const elementosPorDefecto = [
+      "Estudio preliminar: análisis del terreno, normatividad local, factibilidad y riesgos.",
+      "Anteproyecto: primeros planos arquitectónicos, concepto y propuesta de diseño.",
+      "Proyecto ejecutivo: planos arquitectónicos, estructurales, eléctricos, hidráulicos, sanitarios y especiales.",
+      "Memorias de cálculo: justifican el diseño estructural y las instalaciones.",
+      "Presupuesto de obra: desglose de costos de materiales, mano de obra y equipo.",
+      "Programa de obra: cronograma detallado de ejecución por etapas.",
+      "Tramitología: permisos de construcción, uso de suelo, manifestaciones, licencias y autorizaciones.",
+      "Firma de DRO: supervisión y responsabilidad técnica por parte de un Director Responsable de Obra.",
+      "Estudios adicionales: mecánica de suelos, impacto ambiental, topografía, en caso de ser requeridos."
+    ];
+
+    // Obtener elementos desde localStorage o usar los predeterminados
+    let elementos = JSON.parse(localStorage.getItem("elementosProyecto")) || elementosPorDefecto;
+
+    function guardarEnLocalStorage() {
+      localStorage.setItem("elementosProyecto", JSON.stringify(elementos));
+    }
+
+    function renderizarLista() {
+      const lista = document.getElementById("listaElementos");
+      lista.innerHTML = "";
+
+      elementos.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          ${item}
+          <button onclick="editarElemento(${index})">Editar</button>
+          <button onclick="eliminarElemento(${index})">Eliminar</button>
+        `;
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarElemento() {
+      const input = document.getElementById("nuevoElemento");
+      const valor = input.value.trim();
+      if (valor !== "") {
+        elementos.push(valor);
+        input.value = "";
+        guardarEnLocalStorage();
+        renderizarLista();
+      }
+    }
+
+    function editarElemento(index) {
+      const nuevoTexto = prompt("Editar elemento:", elementos[index]);
+      if (nuevoTexto !== null && nuevoTexto.trim() !== "") {
+        elementos[index] = nuevoTexto.trim();
+        guardarEnLocalStorage();
+        renderizarLista();
+      }
+    }
+
+    function eliminarElemento(index) {
+      if (confirm("¿Deseas eliminar este elemento?")) {
+        elementos.splice(index, 1);
+        guardarEnLocalStorage();
+        renderizarLista();
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", renderizarLista);
+  </script>
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-95QYHNCBXB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-95QYHNCBXB');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" href="img/AIA.png" />
+  <title>Login - AIA Cd. Juárez</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Merriweather&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Iniciar Sesión</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Usuario" required />
+      <input type="password" id="password" placeholder="Contraseña" required />
+      <button type="submit">Ingresar</button>
+      <p id="error-message"></p>
+    </form>
+    <p>¿No tienes una cuenta? <a href="registro.html">Crea una aquí</a></p>
+  </div>
+</body>
+
+  <script>
+    // Simulación de base de datos con usuarios válidos
+    const usuariosGuardados = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    // Función para encriptar la contraseña (SHA-256)
+    async function encriptarTexto(texto) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(texto);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+      return hashHex;
+    }
+
+    // Registrar un usuario por defecto si no hay ninguno
+    async function registrarUsuarioPorDefecto() {
+      if (usuariosGuardados.length === 0) {
+        const usuario = "admin";
+        const contrasena = "aia123";
+        const contrasenaEncriptada = await encriptarTexto(contrasena);
+
+        usuariosGuardados.push({
+          username: usuario,
+          password: contrasenaEncriptada
+        });
+
+        localStorage.setItem("usuarios", JSON.stringify(usuariosGuardados));
+      }
+    }
+
+    // Validar login
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const passEncrypt = await encriptarTexto(pass);
+
+      const usuarioValido = usuariosGuardados.find(
+        u => u.username === user && u.password === passEncrypt
+      );
+
+      if (usuarioValido) {
+        alert("Acceso concedido. Bienvenido, " + user + "!");
+        window.location.href = "index.html";
+      } else {
+        alert("⚠️ Acceso denegado. Usuario o contraseña incorrectos.");
+        document.getElementById("error-message").textContent = "Credenciales inválidas.";
+      }
+    });
+
+    // Ejecutar al cargar
+    registrarUsuarioPorDefecto();
+  </script>
+</body>
+</html>
